@@ -35,20 +35,20 @@ class CarViewSet(viewsets.ModelViewSet):
             permission_classes = [permissions.IsAdminUser]
         return [permission() for permission in permission_classes]
 
-    def get_queryset(self):
-        try:
-            origin = self.request.query_params.get("origin", "Mumbai")
-            destination = self.request.query_params.get("destination", "Banglore")
-            required_hours = int(self.request.query_params.get("required_hours", 3))
-        except ValueError:
-            return Response({"error": "Invalid input"}, 400)
+    # def get_queryset(self):
+    #     try:
+    #         origin = self.request.query_params.get("origin", "Mumbai")
+    #         destination = self.request.query_params.get("destination", "Banglore")
+    #         required_hours = int(self.request.query_params.get("required_hours", 3))
+    #     except ValueError:
+    #         return Response({"error": "Invalid input"}, 400)
         
-        cars = Car.objects.filter(current_city=origin)
-        serializer = CarSerializer(cars, many=True)
+    #     cars = Car.objects.filter(current_city=origin)
+    #     serializer = CarSerializer(cars, many=True)
         
-        print(serializer)
+    #     print(serializer)
         
-        return Response(serializer.data)
+    #     return Response(serializer.data)
 
 class TransactionViewSet(viewsets.ModelViewSet):
     queryset = Transaction.objects.all()
